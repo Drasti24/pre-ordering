@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GTC – Event</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <a href="/">← Back</a>
+        <h1 id="eventTitle">Loading…</h1>
+        <form id="orderForm">
+            <div class="card">
+                <h2>Your Details</h2>
+                <label>Name<input required name="buyer_name" /></label>
+                <label>Phone<input required name="phone" /></label>
+                <label>Email (optional)<input name="email" type="email" /></label>
+            </div>
+
+
+            <div class="card">
+                <h2>Pickup Time</h2>
+                <select name="slot_time" id="slotSelect" required></select>
+            </div>
+
+
+            <div class="card">
+                <h2>Menu</h2>
+                <div id="items"></div>
+            </div>
+
+
+            <div class="total">Subtotal: <span id="subtotal">$0</span></div>
+            <button type="submit">Place Pre‑Order</button>
+            <p id="msg" class="msg"></p>
+        </form>
+    </div>
+    <script src="event.js"></script>
+</body>
+
+</html>

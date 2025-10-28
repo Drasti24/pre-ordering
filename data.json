@@ -1,0 +1,33 @@
+{
+  "events": {
+    "diwali-2025": {
+      "name": "Diwali Popup 2025",
+      "active": true,
+      "currency": "CAD",
+      "pickup_window_minutes": 15,
+      "contact_phone": "111-111-1111",
+      "items": {
+        "CHOLE": {
+          "item_name": "Chole Bhature",
+          "price": 12,
+          "remaining_qty": 15
+        },
+        "PAVBHAJI": {
+          "item_name": "Pav Bhaji",
+          "price": 11,
+          "remaining_qty": 20
+        }
+      },
+      "slots": {
+        "2025-11-07 17:00": {
+          "capacity": 20,
+          "remaining": 20
+        },
+        "2025-11-07 17:15": {
+          "capacity": 20,
+          "remaining": 20
+        }
+      }
+    }
+  }
+}

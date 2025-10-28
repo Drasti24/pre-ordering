@@ -34,18 +34,30 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
     const orderRef = db.ref(`orders/${slug}`).push();
     await orderRef.set(order);
 
-    // Update item and slot inventory
+    // 🧩 Sanitize slot key
+    const safeSlotKey = order.slot_time.replace(/[.#$/\[\]:]/g, "-");
+
+    // ✅ Update inventory
     for (const item of order.items) {
         const itemRef = db.ref(`events/${slug}/items/${item.id}/remaining_qty`);
-        await itemRef.transaction(current => (current || 0) - item.qty);
+        await itemRef.transaction(current => {
+            if (current === null || current === undefined) return 0;
+            const newVal = current - item.qty;
+            return newVal < 0 ? 0 : newVal;
+        });
     }
 
-    const slotRef = db.ref(`events/${slug}/slots/${order.slot_time}/remaining`);
-    await slotRef.transaction(current => (current || 0) - 1);
+    // ✅ Update slot count
+    const slotRef = db.ref(`events/${slug}/slots/${safeSlotKey}/remaining`);
+    await slotRef.transaction(current => {
+        if (current === null || current === undefined) return 0;
+        const newVal = current - 1;
+        return newVal < 0 ? 0 : newVal;
+    });
 
     document.getElementById("msg").innerHTML = `<span style="color: green;">✅ Order placed!</span>`;
     form.reset();
 
-    // Refresh the event info
+    // 🔁 Reload event to reflect new quantities
     loadEvent();
 });
